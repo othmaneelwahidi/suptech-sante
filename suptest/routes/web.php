@@ -83,9 +83,12 @@ Route::get('/inscription_formations_continue', [PreInscriptionContinueController
 Route::get('/Bourse_liste', [DemandeDeBourseController::class, 'CheckUserLoginBourse'])->name('Bourse_liste');
 Route::get('/admin/contact', [ContactUsController::class, 'show']);
 
-//routage de pre-inscription
+//routage de fromation initial pre-inscription
 Route::get('/pre-inscription', [PreInscriptionController::class, 'index']);
 Route::post('/inscription', [PreInscriptionController::class, 'Insert'])->name('inscription');
+
+//routage de formation continue pre-inscription
+Route::get('/pre-inscription-continue', [PreInscriptionContinueController::class, 'index']);
 
 
 //contact-us

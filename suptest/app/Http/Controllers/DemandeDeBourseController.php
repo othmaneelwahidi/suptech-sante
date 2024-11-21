@@ -63,9 +63,9 @@ class DemandeDeBourseController extends Controller
         public function CheckUserLoginBourse()
         {
             if (Auth::check()) {
-                $data = Bourse::orderBy('id', 'DESC')->get();
+                $items = Bourse::orderBy('id', 'DESC')->get();
     
-                return view('admin/Bourse_liste', compact('data'))->with('panelactive', 'inscription_Bourse')->with('val', 1);
+                return view('admin/Bourse_liste', compact('items'))->with('panelactive', 'inscription_Bourse')->with('val', 1);
     
             }
             return view('admin/Login');

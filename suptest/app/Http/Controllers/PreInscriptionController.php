@@ -53,30 +53,27 @@ class PreInscriptionController extends Controller
             $inscrire->adresse = $request->adresse;
             $inscrire->save();
 
+            // Generate the registration PDF
             $code_inscription_recu_inscri = DB::table('formation_initial')->pluck('code_inscription')->last();
-            $pdf_inscription = FacadePdf::loadView('recu_inscri_with_bource', ['request' => $request, 'code_inscription_recu_inscri' => $code_inscription_recu_inscri]);
-            $flag_inscription = true; // Assuming this flag determines whether the signup is successful or not
+            $pdf_inscription = FacadePdf::loadView('recu_inscri_with_bource', [
+                'request' => $request,
+                'code_inscription_recu_inscri' => $code_inscription_recu_inscri,
+            ]);
+
+            $flag_inscription = true;
 
             if ($flag_inscription) {
-                // Successful signup
-                $pdf_inscription->save(storage_path('app/public/recu_inscription.pdf')); // Save PDF locally
-                $pdf_path = storage_path('app/public/recu_inscription.pdf');
+                // Save the PDF and redirect back with success
+                $pdf_inscription->save(storage_path('app/public/recu_inscription.pdf'));
+                return redirect()->back()->with('success', 'Inscription réussie ! Le reçu a été généré.');
             } else {
-                // Failed signup
-                return response()->json([
-                    'message_deja' => "Vous êtes déjà inscrit.",
-                    'stay_on_form' => true, // Stay on the form
-                ], 200);
+                // Unexpected failure
+                return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'inscription.']);
             }
             return redirect()->back()->with('success', 'Votre inscription a été enregistrer avec succès');
-        }else {
-            return response()->json([
-                'message' => "Vous êtes déjà inscrit avec les informations fournies.",
-                'stay_on_form' => true, 
-            ], 200);
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Vous êtes déjà inscrit avec les informations fournies.']);
         }
-
-
     }
     public function CheckUserInscrit(Request $request)
     {

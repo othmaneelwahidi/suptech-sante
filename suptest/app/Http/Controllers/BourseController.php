@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Routing\Controller;
 use ZipArchive;
 
 
@@ -21,7 +22,7 @@ class BourseController extends Controller
             Bourse::findOrFail($id)->delete();
             return redirect()->back()->with('success', 'Contact deleted successfully.');
         } else {
-            return view('admin/Login');
+            return view('admin/login');
         }
     }
 
