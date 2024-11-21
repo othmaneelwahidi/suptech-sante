@@ -62,9 +62,16 @@ html {
         --smaller-font-size: .813rem !important;
     }
 }
-
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
 body {
     
+    
+ 
+      
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     height: 100%!important;
@@ -788,173 +795,126 @@ a {
 }
 
 #pf {
+    font-size: 50px;
     color: var(--main-color);
     font-family: 'Playfair Display', 'Times New Roman', Times, serif;
 }
 
-#s-key1 {
-    background-color: var(--main-color);
-    border-radius: 20%;
-    width: 251px;
-    height: 200px;
-    padding: 10px 10px 10px 10px;
-    margin: 1%;
-}
-
-#s-key2 {
-    background-color: var(--main-color);
-    border-radius: 20%;
-    width: 251px;
-    height: 200px;
-    padding: 10px 10px 10px 10px;
-    margin: 1%;
-}
-
-#s-key3 {
-    background-color: var(--main-color);
-    border-radius: 20%;
-    width: 251px;
-    height: 200px;
-    padding: 10px 10px 10px 10px;
-    margin: 1%;
-}
-
-.A-cnt {
-    margin: 5% 0 5% 0;
-    right: 0;
-    left: 0;
-}
-
 .strengthK {
-    margin: 0 0 0 0;
-    right: 0;
-    left: 0;
+    background-color: white;
+
+    border-radius: 12px; /* Rounded corners for a modern look */
+
+    font-family: 'Arial', sans-serif; /* Modern font */
 }
 
 .strengthK h1 {
+    font-size: 30px;
     font-weight: bold;
-    color: var(--second-color);
-    text-align: center;
-    font-size: 1.5em;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #bbb;
+   
+    margin-bottom: 25px;
+    line-height: 1.4; /* Better readability */
 }
 
 .strengthK p {
-    font-size: 1.5em;
-    color: white;
+    font-size: 20px;
+    color: #555; /* Neutral text color */
+    line-height: 1.6; /* Comfortable spacing */
+}
+
+/* Style for .molecule */
+.molecule {
+    margin-left: 3%;
+    max-width: 90%;
+    max-height: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 18px;
+    background: #f9f9f9; /* Light gray background for contrast */
+    box-shadow: 0 4px 8px rgb(0, 78, 102);
     text-align: center;
-    padding-top: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media only screen and (max-width: 994px) {
-    .row {
-        justify-content: center;
+.molecule h1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333; /* Neutral text color */
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.molecule p {
+    font-size: 18px;
+    color: #04007e; /* Slightly lighter text */
+    line-height: 1.6;
+}
+
+.molecule:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+}
+@media screen and (max-width: 768px) {
+    #three-dots-bar {
+      display: none; /* Hide the second image on small screens */
+    }
+  }
+/* Optional responsive styles */
+@media (max-width: 768px) {
+      #punch {
+    max-height: 150px;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  /* Styles for the title */
+  #pf {
+    font-size: 50px;
+    color: var(--main-color);
+    font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+  }
+    .molecule {
+        padding: 15px;
+        margin-left: 5%;
+    }
+
+    .molecule h1 {
+        font-size: 1.5rem;
+    }
+
+    .molecule p {
+        font-size: 0.9rem;
     }
 }
 
-@media only screen and (min-width: 995px) {
-    .row {
-        justify-content: center;
-    }
-    #s-key2 {
-        align-items: center;
-        margin-left: 7%;
-        margin-right: 7%;
-        vertical-align: middle;
-    }
+.strengthK .col-md-4 {
+    text-align: center; /* Center align for consistency */
+    margin-bottom: 10px; /* Add space between rows */
 }
 
-@media screen and (min-width: 1440px) {
-    .row {
-        justify-content: space-between;
-    }
-    #s-key1 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 251px;
-        height: 200px;
-        padding: 10px 10px 10px 10px;
-    }
-    #s-key2 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 251px;
-        height: 200px;
-        padding: 10px 10px 10px 10px;
-        margin-right: 18%;
-        margin-left: 18%;
-    }
-    #s-key3 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 251px;
-        height: 200px;
-        padding: 10px 10px 10px 10px;
-    }
+#s-key1 h1, #s-key2 h1, #s-key3 h1 {
+    color: #28a745; /* Distinct color for headings in each section */
 }
 
-
-/*largy large screens here */
-
-@media screen and (min-width: 1500px) {
-    .row {
-        justify-content: center;
-    }
-    #punch {
-        max-height: 300px;
-        padding-left: 35%;
-        padding-right: 35%;
-        padding-top: 40px;
-        padding-bottom: 30px;
-    }
-    #pf {
-        color: var(--main-color);
-        font-weight: 200;
-        font-size: 4em;
-        margin: 2%;
-    }
-    #s-key1 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 451px;
-        height: 321px;
-        padding: 10px 10px 10px 10px;
-    }
-    #s-key2 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 451px;
-        height: 321px;
-        padding: 10px 10px 10px 10px;
-        margin-right: 2%;
-        margin-left: 2%;
-    }
-    #s-key3 {
-        background-color: var(--main-color);
-        border-radius: 20%;
-        width: 451px;
-        height: 321px;
-        padding: 10px 10px 10px 10px;
-    }
-    .sBar {
-        width: 70%;
-        height: auto;
+@media (max-width: 768px) {
+    .strengthK {
+        padding: 30px 15px;
     }
     .strengthK h1 {
-        font-weight: bold;
-        color: var(--second-color);
-        text-align: center;
-        font-size: 35px;
+        font-size: 20px;
     }
     .strengthK p {
-        font-size: 25px;
-        color: white;
-        justify-content: center;
-        padding-top: 30px;
+        font-size: 16px;
     }
 }
 
+@media (max-width: 576px) {
+    .strengthK .col-md-4 {
+        flex-basis: 100%; /* Full width on extra small screens */
+    }
+}
 
 /*-------------------------------------------Nos Cycles--------------------------------------------------------*/
 

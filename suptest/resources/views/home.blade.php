@@ -179,34 +179,48 @@
 
     <!--+++++++++++++++++++++++++++++++++++++++nos point fort+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
     <div class="A-cnt" style="margin-top: 20rem;">
-        <div class="d-flex justify-content-center">
-            <img src="{{asset('SUPTECH_SANTE-main/assets/key strenght.png')}}" alt="a shiny punch" class="img-responsive " id="punch"
-                style="min-width: 100px;" />
-        </div>
-        <div class="text-center">
-            <h1 id="pf"> Nos points forts </h1>
-        </div>
-        <div class="d-flex justify-content-center">
-            <img src="{{asset('SUPTECH_SANTE-main/assets/3-dots-bar.png')}}" alt="three dots bar" class="img-responsive sBar" />
-        </div>
-        <div class=" strengthK " style="background-color: white;">
-            <div class="row d-flex">
-                <div class="col-md-4" id="s-key1">
-                    <h1>+100 d'experts<br>+50 de partenaires</h1>
-                    <p>la recherche, le développement, l'innovation et l'entrepreneuriat</p>
-                </div>
-                <div class="col-md-4" id="s-key2">
-                    <h1>Formations <br>pluridisciplinaires</h1>
-                    <p>visant à développer des compétences pour intervenir dans toutes les étapes du cycle de vie des
-                        dispositifs médicaux</p>
-                </div>
-                <div class="col-md-4" id="s-key3">
-                    <h1>Acquisition <br>des outils nécessaires</h1>
-                    <p>pour innover et exceller dans les secteurs de l'industrie pharmaceutique, de l'industrie des
-                        vaccins et de l'industrie cosmétique</p>
-                </div>
+   <!-- First Image -->
+
+<div class="d-flex justify-content-center" id="first-image-container">
+    <img src="{{asset('SUPTECH_SANTE-main/assets/key strenght.png')}}" alt="a shiny punch" class="img-responsive" id="punch" style="min-width: 100px;" />
+</div>
+
+<!-- Title -->
+<div class="text-center">
+    <h1 id="pf"> Nos points forts </h1>
+</div>
+
+<!-- Second Image -->
+<div class="d-flex justify-content-center" id="image_rotated">
+    <img src="{{asset('SUPTECH_SANTE-main/assets/3-dots-bar.png')}}" alt="three dots bar" class="img-responsive sBar" id="three-dots-bar" />
+</div>
+
+
+        
+        <div class="strengthK" style="background-color: white;">
+    <div class="row d-flex">
+        <div class="col-md-4" id="s-key1">
+            <div class="molecule">
+                <h1>+100 d'experts<br>+50 de partenaires</h1>
+                <p>la recherche, le développement, l'innovation et l'entrepreneuriat</p>
+                <br>  <br>
             </div>
         </div>
+        <div class="col-md-4" id="s-key2">
+            <div class="molecule">
+                <h1>Formations <br>pluridisciplinaires</h1>
+                <p>visant à développer des compétences pour intervenir dans toutes les étapes du cycle de vie des dispositifs médicaux</p>
+            </div>
+        </div>
+        <div class="col-md-4" id="s-key3">
+            <div class="molecule">
+                <h1>Acquisition <br>des outils nécessaires</h1>
+                <p>pour innover et exceller dans les secteurs de l'industrie pharmaceutique, de l'industrie des vaccins et de l'industrie cosmétique</p>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
     <!--*******************************************Nos Cycles******************************************************-->
     <div class="cnt-C" style="margin-top: 22rem;">
