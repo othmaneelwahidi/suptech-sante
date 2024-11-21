@@ -85,7 +85,7 @@
                         <div class="breadcrumbs-area clearfix">
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="{{ route('panel', ['slug' => App::getLocale()]) }}">Home</a></li>
+                                <li><a href="{{ route('admin.panel', ['slug' => App::getLocale()]) }}">Home</a></li>
                                 <li><span>Demandes inscription</span></li>
                             </ul>
                         </div>
@@ -103,7 +103,7 @@
                     <div class="row">
 
                         <div class="col-lg-2">
-                            <a href="{{ route('export', ['slug' => App::getLocale(), 'Filiere' => 'AllFiliere', 'Ville' => 'AllVille']) }}"
+                            <a href="{{ route('export', ['Filiere' => 'AllFiliere', 'ville' => 'AllVille']) }}"
                                 id="ExcelExport">
                                 <button type="button" class="btn btn-success">Exporter vers Excel</button>
                             </a>
@@ -156,7 +156,6 @@
                                                         <td>{{ $data->nat }}</td>
                                                         <td>{{ $data->ville }}</td>
                                                         <td>{{ $data->Adresse }}</td>
-                                                        {{-- <td>{{ $data->tsrc }} </td> --}}
                                                         @if ($data->completedFile == 1)
                                                             <td><a
                                                                     href="{{ route('download.zipped-folder-formation-continue', ['slug' => App::getLocale(), 'Nom' => $data->Nom, 'Prenom' => $data->Prenom, 'cni' => $data->cin]) }}">Télécharger</a>
@@ -164,7 +163,7 @@
                                                         @endif
                                                         <td>
                                                             <form method="post"
-                                                                action="{{ route('Inscriredestroy1', ['id' => $data->id, 'slug' => App::getLocale()]) }} ">
+                                                                action="{{ route('inscriredestroy1', ['id' => $data->id, 'slug' => App::getLocale()]) }} ">
                                                                 @csrf
                                                                 @method('DELETE')
 
@@ -251,7 +250,7 @@
         <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
         <script>
-            var url = "{{ route('export', ['slug' => App::getLocale(), 'Filiere' => 'AllFiliere', 'Ville' => 'AllVille']) }}";
+            var url = "{{ route('export', ['Filiere' => 'AllFiliere', 'ville' => 'AllVille']) }}";
 
             var Filiere = 'AllFiliere';
             var Ville = 'AllVille';
@@ -302,11 +301,6 @@
                                         column
                                             .search(val ? '^' + val + '$' : '', true, false)
                                             .draw();
-
-
-
-
-
                                         if ($(this).find('option:selected').text()) {
                                             var test = $(this).find('option:selected').text();
                                             url = url.replace(Filiere, test);

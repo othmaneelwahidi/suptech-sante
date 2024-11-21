@@ -85,7 +85,7 @@
                         <div class="breadcrumbs-area clearfix">
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="{{ route('panel', ['slug' => App::getLocale()]) }}">Home</a></li>
+                                <li><a href="{{ route('admin.panel', ['slug' => App::getLocale()]) }}">Home</a></li>
                                 <li><span>Demandes inscription</span></li>
                             </ul>
                         </div>
@@ -103,7 +103,7 @@
                     <div class="row">
 
                         <div class="col-lg-2">
-                            <a href="{{ route('export', ['slug' => App::getLocale(), 'Filiere' => 'AllFiliere', 'Ville' => 'AllVille']) }}"
+                            <a href="{{ route('export', ['Filiere' => 'AllFiliere', 'ville' => 'AllVille']) }}"
                                 id="ExcelExport">
                                 <button type="button" class="btn btn-success">Exporter vers Excel</button>
                             </a>
@@ -172,7 +172,10 @@
                                                         <td>
 
                                                             @php
-                                                                $notes = App\Models\notes::where('inscrire_id', $data->cni)->get();
+                                                                $notes = App\Models\notes::where(
+                                                                    'inscrire_id',
+                                                                    $data->cni,
+                                                                )->get();
                                                             @endphp
 
 
@@ -460,7 +463,7 @@
         <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
         <script>
-            var url = "{{ route('export', ['slug' => App::getLocale(), 'Filiere' => 'AllFiliere', 'Ville' => 'AllVille']) }}";
+            var url = "{{ route('export', ['Filiere' => 'AllFiliere', 'ville' => 'AllVille']) }}";
 
             var Filiere = 'AllFiliere';
             var Ville = 'AllVille';
@@ -511,11 +514,6 @@
                                         column
                                             .search(val ? '^' + val + '$' : '', true, false)
                                             .draw();
-
-
-
-
-
                                         if ($(this).find('option:selected').text()) {
                                             var test = $(this).find('option:selected').text();
                                             url = url.replace(Filiere, test);

@@ -31,29 +31,29 @@ class ContactUsController extends Controller
             Contact::findOrFail($id)->delete();
             return redirect()->back()->with('success', 'Contact deleted successfully.');
         } else {
-            return view('admin/Login');
+            return view('login');
         }
     }
 
     public function show()
 {
     if (Auth::check()) {
-        $data = Contact::all();
-        return view('contact', compact('data'))->with('panelactive', 'contact');
+        $items = Contact::all(); 
+        return view('admin.contact', compact('items'))->with('panelactive', 'contact'); 
     } else {
-        return redirect('admin/Login'); // Redirect to login if not authenticated
+        return redirect('login');
     }
 }
 
 public function Checkcontactpanel()
 {
     if (Auth::check()) {
-        $data = Contact::all();
+        $items = Contact::all();
         $msg = DB::table('contacts')->orderBy('id', 'ASC')->get();
-        return view('admin/Contact', compact('data', 'msg'))->with('Val', 1)->with('panelactive', 'contact');
+        return view('admin/Contact', compact('items', 'msg'))->with('Val', 1)->with('panelactive', 'contact');
     }
 
-    return redirect('admin/Login'); // Redirect to login if not authenticated
+    return redirect('login'); // Redirect to login if not authenticated
 }
 
 }

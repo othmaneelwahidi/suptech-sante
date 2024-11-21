@@ -120,7 +120,7 @@ form .form-select:focus {
                 </div>
             @endif
 
-<form method="post" id="OrderInfo" action="{{ route('Insert', ['slug' => App::getLocale()]) }}"
+<form method="post" id="OrderInfo" action="{{ route('inscription', ['slug' => App::getLocale()]) }}"
     method="post" role="form" class="php-email-form">
     
     @csrf

@@ -81,7 +81,7 @@
                         <div class="breadcrumbs-area clearfix">
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="{{ route('panel', ['slug' => App::getLocale()]) }}">Home</a></li>
+                                <li><a href="{{ route('admin.panel', ['slug' => App::getLocale()]) }}">Home</a></li>
                                 <li><span>Demandes de bourses</span></li>
                             </ul>
                         </div>
@@ -137,32 +137,32 @@
                                         </thead>
                                         
                                         <tbody>
-                                            @foreach ($data as $data)
+                                            @foreach ($items as $item)
                                                 <tr>
                                                     <td>{{ $val++}}  </td>
-                                                    <td>{{ $data->Nom}} </td>
-                                                    <td>{{ $data->email}}</td>
-                                                    <td>{{ $data->cne}}</td>
-                                                    <td>{{ $data->date_naissance}}</td>
-                                                    <td>{{ $data->telephone}}</td>
-                                                    <td>{{ $data->nom_pere_complet}}</td>
-                                                    <td>{{ $data->cin_massar}}</td>
-                                                    <td>{{ $data->adresse}}</td>
-                                                    <td>{{ $data->profession }}</td>
-                                                    <td>{{  $data->Sectors }} </td>
-                                                    <td>{{  $data->type_bourse }} </td>
-                                                    <td>{{  $data->compte_bancaire }} </td>
-                                                    <td>{{  $data->nom_mere_complet }} </td>
-                                                    <td>{{  $data->profession_mere }} </td>
+                                                    <td>{{ $item->Nom}} </td>
+                                                    <td>{{ $item->email}}</td>
+                                                    <td>{{ $item->cne}}</td>
+                                                    <td>{{ $item->date_naissance}}</td>
+                                                    <td>{{ $item->telephone}}</td>
+                                                    <td>{{ $item->nom_pere_complet}}</td>
+                                                    <td>{{ $item->cin_massar}}</td>
+                                                    <td>{{ $item->adresse}}</td>
+                                                    <td>{{ $item->profession }}</td>
+                                                    <td>{{  $item->Sectors }} </td>
+                                                    <td>{{  $item->type_bourse }} </td>
+                                                    <td>{{  $item->compte_bancaire }} </td>
+                                                    <td>{{  $item->nom_mere_complet }} </td>
+                                                    <td>{{  $item->profession_mere }} </td>
                                                     <td>
-                                                        @if($data->fichier_complets == 'true')
-                                                            <a href="{{ route('downloadBourseFiles', ['slug' => App::getLocale(), 'userCNE' => $data->cne]) }}" target="_blank">Télécharger</a>
+                                                        @if($item->fichier_complets == 'true')
+                                                            <a href="{{ route('downloadBourseFiles', ['slug' => App::getLocale(), 'userCNE' => $item->cne]) }}" target="_blank">Télécharger</a>
                                                         @else
                                                             L'étudiant n'a pas encore téléchargé les fichiers
                                                         @endif
                                                     </td>
-                                                    <td>{{  $data->created_at }} </td>
-                                                        <td><form method="post" action="{{ route('DeleteRegisterBourse',[ 'id' => $data->id, 'slug' => App::getLocale()])  }} ">
+                                                    <td>{{  $item->created_at }} </td>
+                                                        <td><form method="post" action="{{ route('DeleteRegisterBourse',[ 'id' => $item->id, 'slug' => App::getLocale()])  }} ">
                                                         @csrf
                                                         @method('DELETE')
                                     
@@ -170,7 +170,7 @@
                                                     </form></td>
                                                     
                                                     <td>
-                                                        <a href="{{ route('PdfStudentBourse',[ 'id' => $data->id, 'slug' => App::getLocale()]) }}">Télécharger</a>
+                                                        <a href="{{ route('PdfStudentBourse',[ 'id' => $item->id, 'slug' => App::getLocale()]) }}">Télécharger</a>
                                                     </td>
                                     
                                                 </tr>

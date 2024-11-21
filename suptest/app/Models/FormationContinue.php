@@ -30,7 +30,6 @@ class FormationContinue extends Model
         'cv_path',
         'diplome_path',
         'recu_inscription_path',
-        'tsrc',
         'completedFile',
     ];
 }

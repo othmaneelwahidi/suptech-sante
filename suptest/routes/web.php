@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DemandeDeBourseController;
+use App\Http\Controllers\PreInscriptionContinueController;
+use App\Http\Controllers\PreInscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewsController;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,22 +25,77 @@ Route::get('/', function () {
     return view('home');
 });
 
-//admin
-Route::get('admin/panel', [UserController::class, 'CheckUserpanel'])
-        ->middleware(['auth', 'verified'])
-        ->name('admin.panel');
-Route::post('/login', [UserController::class, 'login_action'])->name('login.action');
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+//all views with the function index only
+Route::controller(ViewsController::class)->group(function () {
+    Route::get('/campuses', 'campuses');
+    Route::get('/home', 'home')->name('home');
+    Route::get('/concours-planning', 'concoursPlan');
+    Route::get('/docs', 'docs');
+    Route::get('/export/{Filiere}/{ville}', 'export')->name('export');
+    Route::get('/exportBourse/{Type}', 'expoexportBoursert')->name('exportBourse');
+    Route::get('/1sty-cycle-initial', 'firstCycle');
+    Route::get('/2nd-y-cycle-initial', 'secondCycle');
+    Route::get('/FormationsContinue', 'formContinue');
+    Route::get('/formations', 'formation');
+    Route::get('/GB-initial', 'GBI');
+    Route::get('/GBtech-initial', 'GBT');
+    Route::get('/GDIAS-initial', 'GDIAS');
+    Route::get('/LBM', 'LBM');
+    Route::get('/LBM-initial', 'LBMI');
+    Route::get('/LGIH-initial', 'LGIHI');
+    Route::get('/LGILH', 'LGILH');
+    Route::get('/LIAR', 'LIAR');
+    Route::get('/LIAR-initial', 'LIARI');
+    Route::get('/LIDESD','LIDESD');
+    Route::get('/LIDESD-initial','LIDESDI');
+    Route::get('/LIFDM', 'LIFDM');
+    Route::get('/LIFDM-initial', 'LIFDMI');
+    Route::get('/LIIBO', 'LIIBO');
+    Route::get('LIIBO-initial', 'LIIBOI');
+    Route::get('/LIP', 'LIP');
+    Route::get('/LIP-initial', 'LIPI');
+    Route::get('/LMM', 'LMM');
+    Route::get('/LMM-initial', 'LMMI');
+    Route::get('/LMMDSS', 'LMMDSS');
+    Route::get('/LMMDSS-initial', 'LMMDSSI');
+    Route::get('/LSG-initial', 'LSGI');
+    Route::get('/LSG', 'LSG');   
+    Route::get('/MDMAR-initial', 'MDMARI');
+    Route::get('/MDMAR', 'MDMAR');
+    Route::get('/MEMT-initial', 'MEMTI');
+    Route::get('/MEMT', 'MEMT');
+    Route::get('/MMBG-initial', 'MMBGI');
+    Route::get('/MMGB', 'MMGB');
+    Route::get('/results', 'results');
+    Route::get('/suivi-bourse', 'bourse');
+    Route::get('/suivi-pre-inscription', 'suiviPreInsc');
+    Route::get('/suptech-envirenment', 'suptech');
+});
+
+//routage d'admin
+Route::middleware(['auth'])->group(function(){
+    Route::post('/login', [UserController::class, 'login_action'])->name('login');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('admin/panel', [UserController::class, 'CheckUserpanel'])->name('admin.panel');
+});
+Route::get('/inscription_liste', [PreInscriptionController::class, 'showRegisters'])->name('inscription_liste');
+Route::get('/inscription_formations_continue', [PreInscriptionContinueController::class, 'showRegistersFormationContinue'])->name('inscription_formations_continue');
+Route::get('/Bourse_liste', [DemandeDeBourseController::class, 'CheckUserLoginBourse'])->name('Bourse_liste');
+Route::get('/admin/contact', [ContactUsController::class, 'show']);
+
+//routage de pre-inscription
+Route::get('/pre-inscription', [PreInscriptionController::class, 'index']);
+Route::post('/inscription', [PreInscriptionController::class, 'Insert'])->name('inscription');
 
 
 //contact-us
 Route::view('/contact-us', 'contact-us');
 Route::post('/InsertContact', [ContactUsController::class, 'InsertContact'])->name('InsertContact');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';

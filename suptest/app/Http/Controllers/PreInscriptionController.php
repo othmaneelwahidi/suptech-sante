@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\bourses;
-use App\Models\Inscrire;
+use App\Models\FormationInitial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Response;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use ZipArchive;
 
-    
+
 class PreInscriptionController extends Controller
 {
-    
+
 
     public function index()
     {
@@ -29,36 +29,31 @@ class PreInscriptionController extends Controller
     public function Insert(Request $request)
     {
         $flag_inscription = false;
-        $Check_Inscription = Inscrire::where('CIN_MASSAR', $request->input('cin_massar'))
-            ->where('Filiere', $request->input('Sectors'))
+        $Check_Inscription = FormationInitial::where('cneMassar', $request->input('cin_massar'))
+            ->where('formation', $request->input('Sectors'))
             ->first();
         $code_inscription = date('dmY') . substr(str_shuffle(MD5(microtime())), 0, 4);
 
         if (!$Check_Inscription) {
-            $Inscrire = new Inscrire;
-            $Inscrire->code_inscription = $code_inscription;
-            $Inscrire->Nom = $request->Nom;
-            $Inscrire->Prenom = $request->Prenom;
-            $Inscrire->cni = $request->cin;
-            $Inscrire->date_naissance = $request->date_naissance;
-            $Inscrire->CIN_MASSAR = $request->cin_massar;
-            $Inscrire->Email = $request->email;
-            $Inscrire->Tele = $request->telephone;
-            $Inscrire->Sexe = $request->Sexe;
-            $Inscrire->Filiere = $request->Sectors;
-            $Inscrire->bourse = $request->select_bourse;
-            $Inscrire->dip = $request->dip;
-            $Inscrire->nat = $request->nat;
-            $Inscrire->ville = $request->Ville;
-            $Inscrire->Adresse = $request->adresse;
-            if ($request->tsrc == 'facebook' || $request->tsrc == 'instagram' || $request->tsrc == 'linkedin' || $request->tsrc == 'abujad') {
-                $Inscrire->tsrc = $request->tsrc;
-            } else {
-                $Inscrire->tsrc = null;
-            }
-            $Inscrire->save();
+            $inscrire = new FormationInitial;
+            $inscrire->code_inscription = $code_inscription;
+            $inscrire->nom = $request->Nom;
+            $inscrire->prenom = $request->Prenom;
+            $inscrire->cin = $request->cin;
+            $inscrire->date_naissance = $request->date_naissance;
+            $inscrire->cneMassar = $request->cin_massar;
+            $inscrire->email = $request->email;
+            $inscrire->tele = $request->telephone;
+            $inscrire->sexe = $request->Sexe;
+            $inscrire->formation = $request->Sectors;
+            $inscrire->bourse = $request->select_bourse;
+            $inscrire->last_diplome = $request->dip;
+            $inscrire->nationalite = $request->nat;
+            $inscrire->villeFormation = $request->Ville;
+            $inscrire->adresse = $request->adresse;
+            $inscrire->save();
 
-            $code_inscription_recu_inscri = DB::table('inscrires')->pluck('code_inscription')->last();
+            $code_inscription_recu_inscri = DB::table('formation_initial')->pluck('code_inscription')->last();
             $pdf_inscription = FacadePdf::loadView('recu_inscri_with_bource', ['request' => $request, 'code_inscription_recu_inscri' => $code_inscription_recu_inscri]);
             $flag_inscription = true; // Assuming this flag determines whether the signup is successful or not
 
@@ -73,13 +68,21 @@ class PreInscriptionController extends Controller
                     'stay_on_form' => true, // Stay on the form
                 ], 200);
             }
-}
-}
-                public function CheckUserInscrit(Request $request)
+            return redirect()->back()->with('success', 'Votre inscription a été enregistrer avec succès');
+        }else {
+            return response()->json([
+                'message' => "Vous êtes déjà inscrit avec les informations fournies.",
+                'stay_on_form' => true, 
+            ], 200);
+        }
+
+
+    }
+    public function CheckUserInscrit(Request $request)
     {
 
-        $Check_Inscription2 = Inscrire::where('code_inscription', $request->code_inscription)
-            ->where('cni', $request->cin)
+        $Check_Inscription2 = FormationInitial::where('code_inscription', $request->code_inscription)
+            ->where('cin', $request->cin)
             ->where('date_naissance', $request->date_naissance)
             ->where('fichier_notes', null)
             ->first();
@@ -100,36 +103,40 @@ class PreInscriptionController extends Controller
         }
     }
 
-    public function showRegisters(){
-        if(Auth::check()){
-            $data = Inscrire::orderBy('id', 'DESC')->get();
-    
-        return view('admin/Incsription_liste',compact('data'))->with('panelactive','inscription_liste')->with('val',1);}
-        else{
-            return view('admin/Login');
+    public function showRegisters()
+    {
+        if (Auth::check()) {
+            $data = FormationInitial::orderBy('id', 'DESC')->get();
+
+            return view('admin/incsription_liste', compact('data'))->with('panelactive', 'inscription_liste')->with('val', 1);
+        } else {
+            return view('admin/login');
         }
     }
-    
-    public function DeleteRegister($id){     
-    
-               if(Auth::check()){
-                Inscrire::findOrFail($id)->delete();
-                return redirect()->back()->with('success', 'Contact deleted successfully.');}
-                else { return view('admin/Login');}
-    }
-    
-     
 
-    public function getRegisterPDF( $id)
+    public function DeleteRegister($id)
     {
-        $request = Inscrire::findOrFail($id);
+
+        if (Auth::check()) {
+            FormationInitial::findOrFail($id)->delete();
+            return redirect()->back()->with('success', 'Contact deleted successfully.');
+        } else {
+            return view('admin/login');
+        }
+    }
+
+
+
+    public function getRegisterPDF($id)
+    {
+        $request = FormationInitial::findOrFail($id);
         $code_inscription = DB::table('inscrires')->pluck('code_inscription')->last();
         $pdf = FacadePDF::loadView('admin/recu', ['request' => $request, 'code_inscription' => $code_inscription]);
 
         return $pdf->download($request->Nom . ' ' . $request->Prenom . '_inscription.pdf');
     }
 
-    
+
 
     public function downloadNotesFiles($Lang, $userCNI)
     {

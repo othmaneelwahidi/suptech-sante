@@ -10,7 +10,7 @@
                     <nav>
                         <ul class="metismenu" id="menu">
 
-                            <li  ><a href="{{ route('panel', ['slug' => App::getLocale()]) }}"><i class="ti-home"></i> <span>Acceuil</span></a></li>
+                            <li  ><a href="{{ route('admin.panel', ['slug' => App::getLocale()]) }}"><i class="ti-home"></i> <span>Acceuil</span></a></li>
                             <li >
                                 <a href="{{ route('inscription_liste', ['slug' => App::getLocale()]) }}" aria-expanded="true"><i class="fa fa-table"></i>
                                     <span>Demandes inscription</span></a>    
@@ -26,7 +26,7 @@
                             </li>
                             
 
-                            <li ><a href="{{ ('admin/contact') }}"><i class="ti-receipt"></i> <span>Contact</span></a></li>
+                            <li ><a href="{{ ('contact') }}"><i class="ti-receipt"></i> <span>Contact</span></a></li>
                       
                         </ul>
                     </nav>

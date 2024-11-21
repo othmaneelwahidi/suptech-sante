@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\bourses;
+use App\Models\Bourse;
 use App\Models\Inscrire;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +19,8 @@ class DemandeDeBourseController extends Controller
     public function InsertBourse(Request $request)
     {
         // Check if a bourse record already exists for the provided CNE or CIN_MASSAR
-        $existingBourseCNE = bourses::where('cne', $request->cin)->first();
-        $existingBourseMassar = bourses::where('cin_massar', $request->cin_massar)->first();
+        $existingBourseCNE = Bourse::where('cne', $request->cin)->first();
+        $existingBourseMassar = Bourse::where('cin_massar', $request->cin_massar)->first();
     
         // Check if either CNE or CIN_MASSAR is already registered for a bourse
         if ($existingBourseCNE || $existingBourseMassar) {
@@ -31,7 +31,7 @@ class DemandeDeBourseController extends Controller
         }
     
         // No existing bourse registration found, proceed to create a new bourse record
-        $bourse = new bourses;
+        $bourse = new Bourse;
     
         // Assign request data to the bourse attributes
         $bourse->code_inscription = DB::table('inscrires')->pluck('code_inscription')->last();
@@ -63,7 +63,7 @@ class DemandeDeBourseController extends Controller
         public function CheckUserLoginBourse()
         {
             if (Auth::check()) {
-                $data = bourses::orderBy('id', 'DESC')->get();
+                $data = Bourse::orderBy('id', 'DESC')->get();
     
                 return view('admin/Bourse_liste', compact('data'))->with('panelactive', 'inscription_Bourse')->with('val', 1);
     

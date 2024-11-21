@@ -26,7 +26,6 @@ class FormationInitial extends Model
         'formation',
         'villeFormation',
         'bourse',
-        'tsrc',
     ];
 
     public function bourses()

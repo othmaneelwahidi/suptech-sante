@@ -70,8 +70,7 @@
                         <ul class="notification-area pull-right">
 
                             <li>
-                                <a href="{{ route('logout') }}"><i
-                                        class="ti-power-off"></i></a>
+                                <a href="{{ route('logout') }}"><i class="ti-power-off"></i></a>
                             </li>
                             <li class="settings-btn">
                                 <i class="ti-settings"></i>
@@ -166,62 +165,6 @@
 
 
                         <div class="row">
-                            <h4>Réseaux sociaux:</h4>
-
-                            <div class="col-lg-12">
-
-                                <div class="row">
-                                    <div class="col-md-3 mt-md-5 mb-3">
-                                        <div class="card">
-                                            <div class="seo-fact sbg2">
-                                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                                    <div class="seofct-icon"><i class="ti-user"></i>Abdellah Abujad :
-                                                    </div>
-                                                    <h2>{{ $AbjudaResultat->count() }} </h2>
-                                                </div>
-                                                <canvas id="seolinechart2" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 mt-5 mb-3">
-                                        <div class="card">
-                                            <div class="seo-fact sbg2">
-                                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                                    <div class="seofct-icon"><i class="ti-user"></i>Instagram :</div>
-                                                    <h2>{{ $instaResultat->count() }}</h2>
-                                                </div>
-                                                <canvas id="seolinechart1" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 mt-5 mb-3">
-                                        <div class="card">
-                                            <div class="seo-fact sbg2">
-                                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                                    <div class="seofct-icon"><i class="ti-user"></i>Facebook :</div>
-                                                    <h2>{{ $FaceResultat->count() }}</h2>
-                                                </div>
-                                                <canvas id="seolinechart1" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 mt-5 mb-3">
-                                        <div class="card">
-                                            <div class="seo-fact sbg2">
-                                                <div class="p-4 d-flex justify-content-between align-items-center">
-                                                    <div class="seofct-icon"><i class="ti-user"></i>Linkedin :</div>
-                                                    <h2>{{ $LinkdinResultat->count() }}</h2>
-                                                </div>
-                                                <canvas id="seolinechart1" height="50"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <h3 style="margin-bottom:50px;">Inscriptions par Filières</h3>
 
                             <div class="row">

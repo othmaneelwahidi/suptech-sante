@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
-use App\Models\inscrireFormationContinue;
+use App\Models\FormationContinue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +21,8 @@ class PreInscriptionContinueController extends Controller
 {
     try {
         $flag_inscription = false;
-        $Check_Inscription = inscrireFormationContinue::where('cni', $request->cin)
-            ->where('Filiere', $request->Sectors)
+        $Check_Inscription = FormationContinue::where('cin', $request->cin)
+            ->where('formation', $request->Sectors)
             ->first();
         $code_inscription = date('dmY'). substr(str_shuffle(MD5(microtime())), 0, 4);
 
@@ -44,30 +44,25 @@ class PreInscriptionContinueController extends Controller
             }
 
             if ($successfullyMovedFiles === $totalFiles) {
-                $InscrireFC = new inscrireFormationContinue;
+                $InscrireFC = new FormationContinue;
                 $InscrireFC->code_inscription = $code_inscription;
-                $InscrireFC->Nom = $request->Nom;
-                $InscrireFC->Prenom = $request->Prenom;
-                $InscrireFC->cni = $request->cin;
+                $InscrireFC->nom = $request->Nom;
+                $InscrireFC->prenom = $request->Prenom;
+                $InscrireFC->cin = $request->cin;
                 $InscrireFC->date_naissance = $request->date_naissance;
-                $InscrireFC->CIN_MASSAR = $request->cin_massar;
-                $InscrireFC->Email = $request->email;
-                $InscrireFC->Tele = $request->telephone;
-                $InscrireFC->Sexe = $request->Sexe;
-                $InscrireFC->Filiere = $request->Sectors;
-                $InscrireFC->dip = $request->dip;
-                $InscrireFC->nat = $request->nat;
-                $InscrireFC->ville = $request->Ville;
-                $InscrireFC->Adresse = $request->adresse;
-                if (in_array($request->tsrc, ['facebook', 'instagram', 'linkedin', 'abujad'])) {
-                    $InscrireFC->tsrc = $request->tsrc;
-                } else {
-                    $InscrireFC->tsrc = null;
-                }
-                $InscrireFC->cinpdf = $request->cinpdf;
-                $InscrireFC->cv = $request->cv;
-                $InscrireFC->ddo = $request->ddo;
-                $InscrireFC->RecuC = $request->RecuC;
+                $InscrireFC->cneMassar = $request->cin_massar;
+                $InscrireFC->email = $request->email;
+                $InscrireFC->tele = $request->telephone;
+                $InscrireFC->sexe = $request->Sexe;
+                $InscrireFC->formation = $request->Sectors;
+                $InscrireFC->last_diplome = $request->dip;
+                $InscrireFC->nationalite = $request->nat;
+                $InscrireFC->villeFormation = $request->Ville;
+                $InscrireFC->adresse = $request->adresse;
+                $InscrireFC->cin_path = $request->cinpdf;
+                $InscrireFC->cv_path = $request->cv;
+                $InscrireFC->diplome_path = $request->ddo;
+                $InscrireFC->recu_inscription_path = $request->RecuC;
                 $InscrireFC->completedFile = 1;
                 $InscrireFC->save();
 
@@ -151,17 +146,17 @@ class PreInscriptionContinueController extends Controller
     public function showRegistersFormationContinue()
     {
         if (Auth::check()) {
-            $data = inscrireFormationContinue::orderBy('id', 'DESC')->get();
+            $data = FormationContinue::orderBy('id', 'DESC')->get();
 
-            return view('admin/Incsription_formation_continue', compact('data'))->with('panelactive', 'formation_continue')->with('val', 1);
+            return view('admin/incsription_formation_continue', compact('data'))->with('panelactive', 'formation_continue')->with('val', 1);
         } else {
-            return view('admin/Login');
+            return view('admin/login');
         }
     }
 
     public function getRegisterFormationContinuePDF($slug, $id)
     {
-        $request = inscrireFormationContinue::findOrFail($id);
+        $request = FormationContinue::findOrFail($id);
 
         $code_inscription_recu_inscri_formation_continue = DB::table('inscrire_formation_continues')->pluck('code_inscription')->last();
 
@@ -173,9 +168,9 @@ class PreInscriptionContinueController extends Controller
     public function DeleteRegisterFormationContinue( $id)
     {
         if (Auth::check()) {
-            inscrireFormationContinue::findOrFail($id)->delete();
+            FormationContinue::findOrFail($id)->delete();
             return redirect()->back()->with('success', 'Contact deleted successfully.');
-        } else {return view('admin/Login');}
+        } else {return view('admin/login');}
     }
     public function index()
     {
