@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckBourseController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemandeDeBourseController;
 use App\Http\Controllers\PreInscriptionContinueController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\PreInscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewsController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Row;
 
@@ -46,8 +48,8 @@ Route::controller(ViewsController::class)->group(function () {
     Route::get('/LGILH', 'LGILH');
     Route::get('/LIAR', 'LIAR');
     Route::get('/LIAR-initial', 'LIARI');
-    Route::get('/LIDESD','LIDESD');
-    Route::get('/LIDESD-initial','LIDESDI');
+    Route::get('/LIDESD', 'LIDESD');
+    Route::get('/LIDESD-initial', 'LIDESDI');
     Route::get('/LIFDM', 'LIFDM');
     Route::get('/LIFDM-initial', 'LIFDMI');
     Route::get('/LIIBO', 'LIIBO');
@@ -59,7 +61,7 @@ Route::controller(ViewsController::class)->group(function () {
     Route::get('/LMMDSS', 'LMMDSS');
     Route::get('/LMMDSS-initial', 'LMMDSSI');
     Route::get('/LSG-initial', 'LSGI');
-    Route::get('/LSG', 'LSG');   
+    Route::get('/LSG', 'LSG');
     Route::get('/MDMAR-initial', 'MDMARI');
     Route::get('/MDMAR', 'MDMAR');
     Route::get('/MEMT-initial', 'MEMTI');
@@ -73,32 +75,64 @@ Route::controller(ViewsController::class)->group(function () {
 });
 
 //routage d'admin
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth'])->group(function () {
     Route::post('/login', [UserController::class, 'login_action'])->name('login');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('admin/panel', [UserController::class, 'CheckUserpanel'])->name('admin.panel');
 });
-Route::get('/inscription_liste', [PreInscriptionController::class, 'showRegisters'])->name('inscription_liste');
-Route::get('/inscription_formations_continue', [PreInscriptionContinueController::class, 'showRegistersFormationContinue'])->name('inscription_formations_continue');
-Route::get('/Bourse_liste', [DemandeDeBourseController::class, 'CheckUserLoginBourse'])->name('Bourse_liste');
-Route::get('/admin/contact', [ContactUsController::class, 'show']);
 
 //routage de fromation initial pre-inscription
 Route::get('/pre-inscription', [PreInscriptionController::class, 'index']);
 Route::post('/inscription', [PreInscriptionController::class, 'Insert'])->name('inscription');
+Route::delete('/requests{id}', [PreInscriptionController::class, 'DeleteRegister'])->name('Inscrire.destroy2');
+Route::get('/inscription_liste', [PreInscriptionController::class, 'showRegisters'])->name('inscription_liste');
+Route::get('/PdfStudent/{id}', [PreInscriptionController::class, 'getRegisterPDF'])->name('PdfStudent');
 
 //routage de formation continue pre-inscription
 Route::get('/pre-inscription-continue', [PreInscriptionContinueController::class, 'index']);
+Route::post('/InsertFormationContinue', [PreInscriptionContinueController::class, 'Insert_formation_continue'])->name('InsertFormationContinue');
+Route::get('/inscription_formations_continue', [PreInscriptionContinueController::class, 'showRegistersFormationContinue'])->name('inscription_formations_continue');
+Route::get('/download.zipped-folder-formation-continue/{Nom}/{Prenom}', [PreInscriptionContinueController::class, 'downloadZippedFolderFormationContinue'])->name('download.zipped-folder-formation-continue');
+Route::delete('/request/{id}', [PreInscriptionContinueController::class, 'DeleteRegisterFormationContinue'])->name('Inscriredestroy1');
+Route::get('{slug}/PdfFormationContinue/{id}', [PreInscriptionContinueController::class, 'getRegisterFormationContinuePDF'])->name('PdfFormationContinue');
 
-
-//contact-us
+//routage contact-us
 Route::view('/contact-us', 'contact-us');
 Route::post('/InsertContact', [ContactUsController::class, 'InsertContact'])->name('InsertContact');
+Route::get('/admin/contact', [ContactUsController::class, 'show']);
+Route::delete('/contact/{id}', [ContactUsController::class, 'destroy'])->name('contacts.destroy');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+//routage de bourse
+Route::get('/check_bourse', [CheckBourseController::class, 'index'])->name('check_bourse_index');
+Route::post('/check_bourse', [CheckBourseController::class, 'checkInscription'])->name('check_bourse_check');
+Route::post('/demande_bourse', [DemandeDeBourseController::class, 'InsertBourse'])->name('submit_bourse');
+Route::get('/Bourse_liste', [DemandeDeBourseController::class, 'CheckUserLoginBourse'])->name('Bourse_liste');
 
-require __DIR__.'/auth.php';
+
+Route::get('/filesbourse', function ($slug) {
+    if (session()->get('bourse_auth')) {
+        if ($slug == 'fr') {
+            App::setLocale($slug);
+            session()->put('locale', $slug);
+        } else if ($slug == 'ar') {
+            App::setLocale($slug);
+            session()->put('locale', $slug);
+        } else {
+            return redirect('/fr');
+        }
+        return view('FilesBourse');
+    } else {
+        if ($slug == 'fr') {
+            App::setLocale($slug);
+            session()->put('locale', $slug);
+        } else if ($slug == 'ar') {
+            App::setLocale($slug);
+            session()->put('locale', $slug);
+        } else {
+            return redirect('/fr');
+        }
+        return view('suiviBourse');
+    }
+})->name('filesbourse');
+
+require __DIR__ . '/auth.php';

@@ -24,15 +24,15 @@ class PreInscriptionContinueController extends Controller
         $Check_Inscription = FormationContinue::where('cin', $request->cin)
             ->where('formation', $request->Sectors)
             ->first();
-        $code_inscription = date('dmY'). substr(str_shuffle(MD5(microtime())), 0, 4);
+        $code_inscription = date('dmY') . substr(str_shuffle(MD5(microtime())), 0, 4);
 
         if (!$Check_Inscription) {
             $totalFiles = count($request->file());
             $successfullyMovedFiles = 0;
 
             foreach ($request->file() as $name => $file) {
-                $directory = public_path('Dossier_Formation_Continue/'. $request->Nom. '_'. $request->Prenom. '/');
-                $fileName = $name. '.pdf';
+                $directory = public_path('Dossier_Formation_Continue/' . $request->Nom . '_' . $request->Prenom . '/');
+                $fileName = $name . '.pdf';
 
                 if (!is_dir($directory)) {
                     mkdir($directory, 0777, true);
@@ -66,38 +66,20 @@ class PreInscriptionContinueController extends Controller
                 $InscrireFC->completedFile = 1;
                 $InscrireFC->save();
 
-                $code_inscription_recu_inscri_formation_continue = $InscrireFC->code_inscription; // Get the code_inscription from the newly created record
+                $code_inscription_recu_inscri_formation_continue = $InscrireFC->code_inscription;
                 $pdf_inscription = FacadePdf::loadView('recu_inscri_formation_continue', ['request' => $request, 'code_inscription_recu_inscri_formation_continue' => $code_inscription_recu_inscri_formation_continue]);
-                $pdf_inscription->save(storage_path('app/public/recu_inscri_formation_continue.pdf')); // Save PDF locally
-                $pdf_path = storage_path('app/public/recu_inscri_formation_continue.pdf');
+                $pdf_inscription->save(storage_path('app/public/recu_inscri_formation_continue.pdf'));
                 $flag_inscription = true;
+
+                return redirect()->back()->with('success', 'Inscription réussie avec succès.');
             }
         } else {
-            return response()->json([
-                'essage_deja' => session()->get('locale') == 'fr'? "Vous êtes déjà inscrit" : "أنت بالفعل مسجل مسبقا في المدرسة",
-                'tay_on_form' => true,
-            ], 200);
-        }
-
-        if ($flag_inscription) {
-            $pdf_inscription->save(storage_path('app/public/recu_inscri_formation_continue.pdf')); // Save PDF locally
-            $pdf_path = storage_path('app/public/recu_inscri_formation_continue.pdf');
-            
-            $headers = [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="recu_inscri_formation_continue.pdf"',
-            ];
-            
-            return response()->download($pdf_path, 'recu_inscri_formation_continue.pdf', $headers);
+            return redirect()->back()->with('error', "Vous êtes déjà inscrit");
         }
     } catch (\Exception $e) {
-        return response()->json([
-            'error' => $e->getMessage(),
-        ], 500);
+        return redirect()->back()->with('error', "Erreur");
     }
 }
-
-
 
     public function downloadZippedFolderFormationContinue( $Nom, $Prenom)
     {

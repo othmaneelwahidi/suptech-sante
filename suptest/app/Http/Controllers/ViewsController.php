@@ -36,7 +36,7 @@ class ViewsController extends Controller
 
     public function bourse()
     {
-        return view('suivi-bourse');
+        return view('suiviBourse');
     }
 
     public function firstCycle()

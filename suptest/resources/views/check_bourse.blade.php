@@ -11,7 +11,7 @@
         <h2 class="display-4 form-Title">Vérification d'inscription</h2>
       </div>
       
-          <form id="regForm" action="{{ route('check_signup', ['slug' => App::getLocale()]) }}"
+          <form id="regForm" action="{{ route('check_bourse_check', ['slug' => App::getLocale()]) }}"
             method="post">
             @csrf
               <div class="container">

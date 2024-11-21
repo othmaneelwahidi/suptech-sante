@@ -4,7 +4,7 @@
   <h2 class="display-4 form-Title2">Suivi De Demande De Pré-inscription</h2>
 </div>
 
-    <form method="post">
+    <form method="post" >
         <div class="container">
             <div class="row">
     <div class="col-lg-12 col-md-12 form-group">

@@ -158,9 +158,9 @@
            <li><a href="/sectors">Cycle ingénieur</a></li>
            <li><a href="/sectors">Cycle Master</a></li> -->
 
-                        <li class="dropdown"><a
-                                href="{{ route('cp', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.ccpi') }}
-                                </span> <i class="bi bi-chevron-right"></i></a>
+                        <li class="dropdown">
+                            {{-- <a href="{{ route('cp', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.ccpi') }}
+                                </span> <i class="bi bi-chevron-right"></i></a> --}}
 
                             <ul>
                                 <li><a href="{{ route('prepa1', ['slug' => App::getLocale()]) }}">
