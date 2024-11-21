@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BourseExport;
+use App\Exports\InscrireExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ViewsController extends Controller
 {

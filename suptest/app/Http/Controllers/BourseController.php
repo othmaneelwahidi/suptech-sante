@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\bourses;
+use App\Models\Bourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ class BourseController extends Controller
     {
 
         if (Auth::check()) {
-            bourses::findOrFail($id)->delete();
+            Bourse::findOrFail($id)->delete();
             return redirect()->back()->with('success', 'Contact deleted successfully.');
         } else {
             return view('admin/Login');
@@ -28,7 +28,7 @@ class BourseController extends Controller
 
     public function CheckUserBourse(Request $request)
     {
-        $Check_Inscription = bourses::where('code_inscription', $request->code_inscription)
+        $Check_Inscription = Bourse::where('code_inscription', $request->code_inscription)
             ->where('cne', $request->cin)
             ->where('date_naissance', $request->date_naissance)
             ->where('fichier_complets', null)->first();
@@ -186,7 +186,7 @@ class BourseController extends Controller
 
         
         if ($Check_Inscription) {
-            $profession = bourses::select('profession', 'profession_mere', 'profession_tuteur')
+            $profession = Bourse::select('profession', 'profession_mere', 'profession_tuteur')
                 ->where('cne', $request->cin)
                 ->where('date_naissance', $request->date_naissance)
                 ->first();
@@ -253,8 +253,8 @@ class BourseController extends Controller
 
     public function getRegisterPDF( $id)
     {
-        $request = bourses::findOrFail($id);
-        $code_inscription_bourse = DB::table('bourses')->pluck('code_inscription')->last();
+        $request = Bourse::findOrFail($id);
+        $code_inscription_bourse = DB::table('bourse')->pluck('code_inscription')->last();
         $pdf = FacadePDF::loadView('admin/recu_bourse', ['request' => $request, 'code_inscription_bourse' => $code_inscription_bourse]);
 
         return $pdf->download($request->Nom . '_Bourse.pdf');

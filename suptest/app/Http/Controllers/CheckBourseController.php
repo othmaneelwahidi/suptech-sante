@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Inscrire;
+use App\Models\FormationInitial;
 
 
 class CheckBourseController extends Controller
@@ -19,7 +19,7 @@ $errorMessage = __('Votre code inscription incorrect ou bien Vous n\'êtes pas i
 
 
     try {
-        $code_inscr = Inscrire::where('code_inscription', $request->code_inscription)
+        $code_inscr = FormationInitial::where('code_inscription', $request->code_inscription)
             ->where('bourse', 'bourse_oui')
             ->first();
         if ($code_inscr) {

@@ -13,27 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fullName');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('username')->nullable();
             $table->string('password');
+            $table->integer('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-
-    // To check if the admin account exsists already
-        $admin = DB::table('users')->where('email', 'admin')->first(); 
-
-        if (!$admin) { 
-            // add it, if not
-            DB::table('users')->insert([
-                'name' => 'admin',
-                'email' => 'admin',
-                'password' => Hash::make('admin5'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
