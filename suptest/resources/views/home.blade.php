@@ -1,7 +1,33 @@
 @extends('layouts.master_page')
 @section('content')
+<head><!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Bootstrap JS (includes Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
 <style>
-    
+    /* Back button styling */
+.back-button {
+    position: absolute;
+    margin-top: -25%;
+    margin-right: 15%;
+    right: 10px;
+    background-color: white; /* Red color for visibility */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it is above the video */
+    display: none; /* Initially hide the button */
+}
+
+/* You can also add some hover styles for better user experience */
+.back-button:hover {
+    background-color: #cc0000;
+}
+
     /* Popup styles */
   .popup {
       display: none; /* Hidden by default */
@@ -82,6 +108,122 @@
   outline-offset: 15px;
   
 }
+.myslide {
+    position: relative; 
+}
+
+.slider-button {
+   
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    background: radial-gradient(#428bca 50%, rgba(66, 139, 202, 0.4) 52%);
+    background-color: #428bca;
+    padding: 30px 35px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    overflow: hidden; /* Ensure the ripple doesn't overflow the button */
+    position: relative; /* Needed for ::before positioning */
+}
+
+.slider-button::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+    animation: ripple 2s infinite ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        width: 20px;
+        height: 20px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 200px;
+        height: 200px;
+        opacity: 0;
+    }
+}
+
+.slider-button:hover {
+    background-color: #428bca;
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+}
+
+.video-container video {
+    width: 100%;
+    height: 70%;
+    max-width: 500px;
+    margin-bottom: 8%;
+    border-radius: 12px;
+    margin-top: 12%;
+    margin-left: 32%;
+}
+
+.video-container.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+/* Media query for small screens (mobile) */
+@media screen and (max-width: 768px) {
+    .video-container video {
+            width: 60%;
+        height: auto;
+        margin-top: 10%;
+        margin-left: 20%;
+        max-width: none;
+    } /* Allow full width */
+    }
+
+/* Media query for very small screens (extra small devices) */
+@media screen and (max-width: 480px) {
+    .video-container video {
+        width: 100%;
+        height: auto;
+   
+        margin-left: 0;
+    }
+}
+
+/* Media query for medium screens (tablets) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .video-container video {
+        width: 80%;
+        height: auto;
+    
+        margin-left: 10%;
+    }
+}
+.hidden {
+    display: none;
+}
+
   </style>
   <div id="popup" class="popup ">
     <div class="container">
@@ -107,54 +249,76 @@
     </div>
     <div class="slider" style="background-color: #3C3790; ">
         <!-- fade css -->
+     
         <div class="myslide fade">
-            <div class="txt">
-                <h1 class="display-1">Suptech Sante</h1>
-                <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
-            </div>
-            <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptech-sante-mohammadia-campus.jpg')}}" style="width: 100%; height: 100%;"
-                alt="suptech sante mohammadia campus">
-        </div>
+    <div class="txt">
+        <h1 class="display-1">Suptech Sante</h1>
+        <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
+    </div>
+    <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptech-sante-mohammadia-campus.jpg')}}" style="width: 100%; height: 100%;"
+         alt="suptech sante mohammadia campus">
+    
+    <!-- Button fixed at the bottom left -->
+    <a href="#" class="slider-button" onclick="showVideo(event)"><i class="fa-sharp fa-solid fa-play" style="color:white;"></i></a>
+</div>
 
-        <div class="myslide fade">
-            <div class="txt">
-                <h1 class="display-1">Suptech Sante</h1>
-                <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
-            </div>
-            <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptechsante front door.jpg')}}" style="width: 100%; height: 100%;"
-                alt="suptech sante mohammadia campus front door">
-        </div>
+<div class="myslide fade">
+    <div class="txt">
+        <h1 class="display-1">Suptech Sante</h1>
+        <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
+    </div>
+    <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptechsante front door.jpg')}}" style="width: 100%; height: 100%;"
+         alt="suptech sante mohammadia campus front door">
+    
+    <!-- Button fixed at the bottom left -->
+    <a href="#" class="slider-button" id="play-btn" onclick="showVideo(event)"><i class="fa-sharp fa-solid fa-play" style="color:white;"></i></a>
+</div>
 
-        <div class="myslide fade">
-            <div class="txt">
-                <h1 class="display-1">Suptech Sante</h1>
-                <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
-            </div>
-            <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptech-amphitheatre.jpg')}}" style="width: 100%; height: 100%;"
-                alt="suptech mohammadia amphitheatre">
-        </div>
+<div class="myslide fade">
+    <div class="txt">
+        <h1 class="display-1">Suptech Sante</h1>
+        <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
+    </div>
+    <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptechsante front door.jpg')}}" style="width: 100%; height: 100%;"
+         alt="suptech sante mohammadia campus front door">
+    
+    <!-- Button fixed at the bottom left -->
+    <a href="#" class="slider-button" onclick="showVideo(event)"><i class="fa-sharp fa-solid fa-play" style="color:white;"></i></a>
+</div>
+<div id="content" class="hidden"></div>
+<div class="myslide fade">
+    <div class="txt">
+        <h1 class="display-1">Suptech Sante</h1>
+        <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
+    </div>
+    <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptech sante amphi-stage.jpg')}}" style="width: 100%; height: 100%;"
+         alt="suptech mohammadia amphitheatre">
 
-        <div class="myslide fade">
-            <div class="txt">
-                <h1 class="display-1">Suptech Sante</h1>
-                <p>Ecole Supérieure de Génie Biomédical et des Techniques de santé</p>
-            </div>
-            <img id="img" src="{{asset('SUPTECH_SANTE-main/assets/suptech sante amphi-stage.jpg')}}" style="width: 100%; height: 100%;"
-                alt="suptech mohammadia amphitheatre">
-        </div>
 
-        <!-- onclick js -->
-        <a class="prev" onclick="plusSlides(-1)"> </a>
-        <a class="next" onclick="plusSlides(1)"> </a>
+    <!-- Button fixed at the bottom left -->
+    <a href="#" class="slider-button" onclick="showVideo(event)"><i class="fa-sharp fa-solid fa-play" style="color:white;"></i></a>
+</div>
 
-        <div class="dotsbox" style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(4)"></span>
-            <span class="dot" onclick="currentSlide(5)"></span>
-        </div>
-        <!-- /onclick js -->
+<!-- Previous and Next arrows -->
+<a class="prev" onclick="plusSlides(-1)"> </a>
+<a class="next" onclick="plusSlides(1)"> </a>
+
+<!-- Dots navigation -->
+<div class="dotsbox" style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+</div>
+<button id="back-button" class="back-button">X</button>
+<div id="video-container" class="video-container hidden">
+    <video id="video" controls>
+        <source src="{{ asset('assets/Tutoriel/reconnaisance.mp4') }}" type="video/mp4">
+ 
+    </video>
+</div>
+
     </div>
     <!--++++++++++++++++++++++++++++++++++++++++++++ About +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
     <div class="container ">
@@ -435,5 +599,62 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Update the <span id="year-range"> with the dynamic year range
     document.getElementById('year-range').textContent = yearRange;
+</script>
+<script>
+// Get the carousel and video elements
+const video = document.getElementById('tutorialVideo');
+const carouselElement = document.getElementById('carouselExample');
+
+// Initialize the Bootstrap carousel
+const carousel = new bootstrap.Carousel(carouselElement, {
+    interval: 2000, // Interval between slides (2 seconds for example)
+    ride: 'carousel', // Start the carousel immediately
+});
+
+// Listen for the video play event to pause the carousel
+video.addEventListener('play', () => {
+    console.log("Video playing, pausing carousel");
+    carousel.pause();  // Pause the carousel when the video starts playing
+});
+
+// Listen for the video ended event to resume the carousel
+video.addEventListener('ended', () => {
+    console.log("Video ended, resuming carousel");
+    carousel.cycle();  // Resume the carousel when the video ends
+});
+
+// Optional: Listen for the video pause event to resume the carousel if it pauses
+video.addEventListener('pause', () => {
+    console.log("Video paused, resuming carousel");
+    carousel.cycle();  // Resume the carousel if video is paused manually
+});
+
+ 
+</script>
+<script>
+function showVideo(event) {
+    event.preventDefault(); // Prevent default anchor click behavior
+
+    const videoContainer = document.getElementById('video-container');
+    const video = document.getElementById('video');
+    const backButton = document.getElementById('back-button'); // Get the back button
+
+    videoContainer.classList.remove('hidden'); // Make video container visible
+    videoContainer.classList.add('show'); // Trigger fade-in effect
+    
+    backButton.style.display = 'block'; // Show the back button when the video is displayed
+}
+
+// Add event listener for the back button
+document.getElementById('back-button').addEventListener('click', function() {
+    const videoContainer = document.getElementById('video-container');
+    const backButton = document.getElementById('back-button');
+
+    // Hide the video and the back button
+    videoContainer.classList.remove('show');
+    videoContainer.classList.add('hidden');
+    backButton.style.display = 'none'; // Hide the back button
+});
+
 </script>
 @endsection

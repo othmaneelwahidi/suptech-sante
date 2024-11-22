@@ -465,7 +465,42 @@ a {
 
 
 /*---------------------------------------------------slider----------------------------------------------------------------------------------------*/
-
+.myslide video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%; 
+    height: 100%;
+    margin-left: 33%;
+    object-fit: cover; /* Ensures the video fills the div without distortion */
+    z-index: 0;
+  }
+  @media screen and (max-width: 768px) {
+    .myslide video {
+      width: 95%; 
+      height: 100%;
+      margin-left: 2%;
+      object-fit: cover;
+    }
+  }
+  @media screen and (max-width: 1496px) {
+    .myslide video {
+      width: 65%; /* Video width for 1496px */
+      height: 100%;
+      margin-left: 20%; /* Centers the video horizontally */
+      object-fit: cover;
+    }
+  }
+  
+  /* Media query for screens 1200px or smaller */
+  @media screen and (max-width: 1200px) {
+    .myslide video {
+      width: 40%; /* Video width for 1200px */
+      height: 100%;
+      margin-left: 25%; /* Centers the video horizontally */
+      object-fit: cover;
+    }
+  }
 .sign {
     float: right;
     line-height: 60px;
