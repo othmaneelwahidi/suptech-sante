@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('SUPTECH_SANTE-main/assets/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('style/css/web_page_style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
