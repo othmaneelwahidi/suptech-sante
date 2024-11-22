@@ -24,12 +24,12 @@ class ViewsController extends Controller
         return view('docs');
     }
 
-    public function export( $Filiere, $Ville) 
+    public function export($Filiere, $Ville)
     {
         return Excel::download(new InscrireExport($Filiere, $Ville), 'Inscription_Liste.xlsx');
     }
-    
-    public function exportBourse($Type) 
+
+    public function exportBourse($Type)
     {
         return Excel::download(new BourseExport($Type), 'Inscription_Bourse.xlsx');
     }
@@ -41,37 +41,37 @@ class ViewsController extends Controller
 
     public function firstCycle()
     {
-        return view('1sty-cycle-initial');
+        return view('filiere.1sty-cycle-initial');
     }
 
     public function secondCycle()
     {
-        return view('2nd-y-cycle-initial');
+        return view('filiere.2nd-y-cycle-initial');
     }
 
     public function formContinue()
     {
-        return view('FormationsContinue');
+        return view('filiere.FormationsContinue');
     }
 
     public function formation()
     {
-        return view('formations');
+        return view('filiere.formations');
     }
 
     public function GBI()
     {
-        return view('GB-initial');
+        return view('filiere.GB-initial');
     }
 
     public function GBT()
     {
-        return view('GBtech-initial');
+        return view('filiere.GBtech-initial');
     }
 
     public function GDIAS()
     {
-        return view('GDIAS-initial');
+        return view('filiere.GDIAS-initial');
     }
 
     public function home()
@@ -81,132 +81,132 @@ class ViewsController extends Controller
 
     public function LBM()
     {
-        return view('LBM');
+        return view('filiere.LBM');
     }
 
     public function LBMI()
     {
-        return view('LBM-initial');
+        return view('filiere.LBM-initial');
     }
 
     public function LGIHI()
     {
-        return view('LGIH-initial');
+        return view('filiere.LGIH-initial');
     }
 
     public function LGILH()
     {
-        return view('LGILH');
+        return view('filiere.LGILH');
     }
 
     public function LIAR()
     {
-        return view('LIAR');
+        return view('filiere.LIAR');
     }
 
     public function LIARI()
     {
-        return view('LIAR-initial');
+        return view('filiere.LIAR-initial');
     }
 
-    public function LIDESD()
+    public function LIDSED()
     {
-        return view('LIDESD');
+        return view('filiere.LIDESD');
     }
 
     public function LIDSEDI()
     {
-        return view('LIDSED-initial');
+        return view('filiere.LIDSED-initial');
     }
 
-    public function  LIFDM()
+    public function LIFDM()
     {
-        return view('LIFDM');
+        return view('filiere.LIFDM');
     }
 
     public function LIFDMI()
     {
-        return view('LIFDM-initial');
+        return view('filiere.LIFDM-initial');
     }
 
     public function LIIBO()
     {
-        return view('LIIBO');
+        return view('filiere.LIIBO');
     }
 
     public function LIIBOI()
     {
-        return view('LIIBO-initial');
+        return view('filiere.LIIBO-initial');
     }
 
     public function LIP()
     {
-        return view('LIP');
+        return view('filiere.LIP');
     }
 
     public function LIPI()
     {
-        return view('LIP-initial');
+        return view('filiere.LIP-initial');
     }
 
     public function LMM()
     {
-        return view('LMM');
+        return view('filiere.LMM');
     }
 
     public function LMMI()
     {
-        return view('LMM-initial');
+        return view('filiere.LMM-initial');
     }
 
     public function LMMDSS()
     {
-        return view('LMMDSS');
+        return view('filiere.LMMDSS');
     }
 
     public function LMMDSSI()
     {
-        return view('LMMDSS-initial');
+        return view('filiere.LMMDSS-initial');
     }
 
     public function LSG()
     {
-        return view('LSG');
+        return view('filiere.LSG');
     }
 
     public function LSGI()
     {
-        return view('LSG-initial');
+        return view('filiere.LSG-initial');
     }
 
     public function MDMAR()
     {
-        return view('MDMAR');
+        return view('filiere.MDMAR');
     }
 
     public function MDMARI()
     {
-        return view('MDMAR-initial');
+        return view('filiere.MDMAR-initial');
     }
 
     public function MEMT()
     {
-        return view('MEMT');
+        return view('filiere.MEMT');
     }
 
     public function MEMTI()
     {
-        return view('MEMT-initial');
+        return view('filiere.MEMT-initial');
     }
 
     public function MMBGI()
     {
-        return view('MMBG-initial');
+        return view('filiere.MMBG-initial');
     }
 
     public function MMGB()
     {
-        return view('MMGB');
+        return view('filiere.MMGB');
     }
 
     public function results()
@@ -219,9 +219,13 @@ class ViewsController extends Controller
         return view('suivi-pre-inscription');
     }
 
+    public function index()
+    {
+        return view('suivi-bourse');
+    }
+
     public function suptech()
     {
         return view('suptech-envirenment');
     }
-
 }

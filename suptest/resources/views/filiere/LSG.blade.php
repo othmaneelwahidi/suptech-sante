@@ -3,7 +3,7 @@
 <div class="hero-imagefc">
             <img  src="{{asset('SUPTECH_SANTE-main/assets/fc2.jpg')}}" >
             <div class="hero-textfc">
-                <h6 class="display-4">Licence Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</h6>
+                <h6 class="display-4">Licence en Sciences de Gestion en Milieu Hospitalier et Industrie Médicale</h6>
                 <button onclick="window.location.href='pre-inscription-continue '">Inscrivez-Vous
                     <div class="Shape1"></div>
                 </button>

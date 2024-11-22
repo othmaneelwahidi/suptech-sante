@@ -29,9 +29,10 @@ class BourseController extends Controller
     public function CheckUserBourse(Request $request)
     {
         $Check_Inscription = Bourse::where('code_inscription', $request->code_inscription)
-            ->where('cne', $request->cin)
+            ->where('cin', $request->cin)
             ->where('date_naissance', $request->date_naissance)
-            ->where('fichier_complets', null)->first();
+            // ->where('fichier_complets', null)
+            ->first();
 
         $parent_existe_avec_titeur_fr = [
             "Fiche demande de bourse (FDB)",
@@ -186,8 +187,8 @@ class BourseController extends Controller
 
         
         if ($Check_Inscription) {
-            $profession = Bourse::select('profession', 'profession_mere', 'profession_tuteur')
-                ->where('cne', $request->cin)
+            $profession = Bourse::select('etatPere', 'etatMere', 'etatTuteur')
+                ->where('cin', $request->cin)
                 ->where('date_naissance', $request->date_naissance)
                 ->first();
 

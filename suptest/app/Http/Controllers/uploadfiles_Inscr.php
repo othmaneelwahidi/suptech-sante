@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
+use App\Models\FormationInitial;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
@@ -52,7 +53,7 @@ class uploadfiles_Inscr extends Controller
     $note->note_s10 = $request->note_s10;
     $note->moy_A5 = $request->note_A5;
 
-    $inscrire = Inscrire::where('cni', $id)->first();
+    $inscrire = FormationInitial::where('cin', $id)->first();
     $note->inscrire_id = $inscrire->cni;
 
     $note->save();

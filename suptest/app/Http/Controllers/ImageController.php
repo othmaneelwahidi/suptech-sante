@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Images;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class ImageController extends Controller
 
             $file->move(public_path('Galerie'), $imageName);
 
-            $image = new Images;
+            $image = new Image();
             $image->name = $imageName;
             $image->save();
 
@@ -33,7 +34,7 @@ class ImageController extends Controller
 public function DeleteImage($slug,$id)
             { if(Auth::check()){
 
-    Images::findOrFail($id)->delete();
+    Image::findOrFail($id)->delete();
     return redirect('/fr/ajoutimage');}
 else { return view('admin/Login');}
 }

@@ -159,76 +159,73 @@
            <li><a href="/sectors">Cycle Master</a></li> -->
 
                         <li class="dropdown">
-                            {{-- <a href="{{ route('cp', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.ccpi') }}
-                                </span> <i class="bi bi-chevron-right"></i></a> --}}
+                            <a href="{{ route('formation', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.ccpi') }}
+                                </span> <i class="bi bi-chevron-right"></i></a>
 
                             <ul>
-                                <li><a href="{{ route('prepa1', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('firstCycle', ['slug' => App::getLocale()]) }}">
                                         {{ __('messages.1ere') }}</a></li>
                                 <li><a
-                                        href="{{ route('prepa2', ['slug' => App::getLocale()]) }}">{{ __('messages.2eme') }}</a>
+                                        href="{{ route('secondCycle', ['slug' => App::getLocale()]) }}">{{ __('messages.2eme') }}</a>
                                 </li>
                             </ul>
 
                         </li>
                         <li class="dropdown"><a
-                                href="{{ route('cl', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.licence') }}</span>
+                                href="{{ route('formation', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.licence') }}</span>
                                 <i class="bi bi-chevron-right"></i></a>
-
                             <ul>
-                                <li><a href="{{ route('lpm', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LMM', ['slug' => App::getLocale()]) }}">
                                         {{ __('messages.lpmgb') }}</a></li>
                                 <li><a
-                                        href="{{ route('lpg', ['slug' => App::getLocale()]) }}">{{ __('messages.lpgil') }}</a>
+                                        href="{{ route('LGILH', ['slug' => App::getLocale()]) }}">{{ __('messages.lpgil') }}</a>
                                 </li>
-                                <li><a href="{{ route('lpi', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LIDSEDI', ['slug' => App::getLocale()]) }}">
                                         <div class="text-wrap"> {{ __('messages.lpidsd') }}</div>
                                     </a></li>
-                                <li><a href="{{ route('lps', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LSGI', ['slug' => App::getLocale()]) }}">
                                         {{ __('messages.lpsg') }} </a></li>
-                                <li><a href="{{ route('ltlbm', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LGIHI', ['slug' => App::getLocale()]) }}">
                                         {{ __('messages.ltlbm') }}</a></li>
                                 <li><a
-                                        href="{{ route('lip', ['slug' => App::getLocale()]) }}">{{ __('messages.lip') }}</a>
+                                        href="{{ route('LIPI', ['slug' => App::getLocale()]) }}">{{ __('messages.lip') }}</a>
                                 </li>
-                                <li><a href="{{ route('liar', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LIARI', ['slug' => App::getLocale()]) }}">
                                         <div class="text-wrap"> {{ __('messages.liar') }}</div>
                                     </a></li>
-                                <li><a href="{{ route('liibo', ['slug' => App::getLocale()]) }}">
+                                <li><a href="{{ route('LIIBOI', ['slug' => App::getLocale()]) }}">
                                         {{ __('messages.liibo') }} </a></li>
                             </ul>
-
                         </li>
 
-                        <li class="dropdown"><a href="{{ route('ci', ['slug' => App::getLocale()]) }}"><span>
-                                    {{ __('messages.ingenieur') }}</span> <i class="bi bi-chevron-right"></i></a>
-
+                        <li class="dropdown"><a href="{{ route('formation', ['slug' => App::getLocale()]) }}">
+                            <span> {{ __('messages.ingenieur') }}</span> <i class="bi bi-chevron-right"></i></a>
                             <ul>
-                                <li><a
-                                        href="{{ route('genieb', ['slug' => App::getLocale()]) }}">{{ __('messages.gb') }}</a>
+                                <li>
+                                    <a href="{{ route('GBI', ['slug' => App::getLocale()]) }}">{{ __('messages.gb') }}</a>
                                 </li>
-                                <li><a
-                                        href="{{ route('genied', ['slug' => App::getLocale()]) }}">{{ __('messages.gdias') }}</a>
+                                <li>
+                                    <a href="{{ route('GBT', ['slug' => App::getLocale()]) }}">{{ __('messages.ibt') }}<a/>
                                 </li>
-
+                                <li>
+                                    <a href="{{ route('GDIAS', ['slug' => App::getLocale()]) }}">{{ __('messages.gdias') }}</a>
+                                </li>
                             </ul>
-
-
                         </li>
 
                         <li class="dropdown"><a
-                                href="{{ route('cm', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.cmm') }}</span>
+                                href="{{ route('formation', ['slug' => App::getLocale()]) }}"><span>{{ __('messages.cmm') }}</span>
                                 <i class="bi bi-chevron-right"></i></a>
 
                             <ul>
-                                <li><a
-                                        href="{{ route('masterd', ['slug' => App::getLocale()]) }}">{{ __('messages.mdmar') }}</a>
+                                <li>
+                                    <a href="{{ route('MDMARI', ['slug' => App::getLocale()]) }}">{{ __('messages.mdmar') }}</a>
                                 </li>
-                                <li><a
-                                        href="{{ route('mastermaint', ['slug' => App::getLocale()]) }}">{{ __('messages.mmgb') }}</a>
+                                <li>
+                                    <a href="{{ route('MMBGI', ['slug' => App::getLocale()]) }}">{{ __('messages.mmgb') }}</a>
                                 </li>
-                                <li><a
-                                        href="{{ route('mastere', ['slug' => App::getLocale()]) }}">{{ __('messages.memt') }}</a>
+                                <li>
+                                    <a href="{{ route('MEMTI', ['slug' => App::getLocale()]) }}">{{ __('messages.memt') }}</a>
                                 </li>
 
                             </ul>
@@ -243,43 +240,43 @@
 
                             <ul>
                                 <li class="dropdown">
-                                    <a href="{{ route('cl', ['slug' => App::getLocale()]) }}">{{ __('messages.Bac3') }}
+                                    <a href="{{ route('formContinue', ['slug' => App::getLocale()]) }}">{{ __('messages.Bac3') }}
                                         <i class="bi bi-chevron-right"></i></a>
                                     <ul>
-                                        <li><a href="{{ route('lpm', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LMM', ['slug' => App::getLocale()]) }}">
                                                 {{ __('messages.lpmgbFC') }}</a></li>
                                         <li><a
-                                                href="{{ route('lpg', ['slug' => App::getLocale()]) }}">{{ __('messages.lpgilFC') }}</a>
+                                                href="{{ route('LGILH', ['slug' => App::getLocale()]) }}">{{ __('messages.lpgilFC') }}</a>
                                         </li>
-                                        <li><a href="{{ route('lpi', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LIDSED', ['slug' => App::getLocale()]) }}">
                                                 <div class="text-wrap"> {{ __('messages.lpidsdFC') }}</div>
                                             </a></li>
-                                        <li><a href="{{ route('lps', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LSG', ['slug' => App::getLocale()]) }}">
                                                 {{ __('messages.lpsgFC') }} </a></li>
-                                        <li><a href="{{ route('ltlbm', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LBM', ['slug' => App::getLocale()]) }}">
                                                 {{ __('messages.ltlbmFC') }}</a></li>
                                         <li><a
-                                                href="{{ route('lip', ['slug' => App::getLocale()]) }}">{{ __('messages.lipFC') }}</a>
+                                                href="{{ route('LIP', ['slug' => App::getLocale()]) }}">{{ __('messages.lipFC') }}</a>
                                         </li>
-                                        <li><a href="{{ route('liar', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LIAR', ['slug' => App::getLocale()]) }}">
                                                 <div class="text-wrap"> {{ __('messages.liarFC') }}</div>
                                             </a></li>
-                                        <li><a href="{{ route('liibo', ['slug' => App::getLocale()]) }}">
+                                        <li><a href="{{ route('LIIBO', ['slug' => App::getLocale()]) }}">
                                                 {{ __('messages.liiboFC') }} </a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="{{ route('cm', ['slug' => App::getLocale()]) }}">{{ __('messages.Bac5') }}
+                                    <a href="{{ route('formContinue', ['slug' => App::getLocale()]) }}">{{ __('messages.Bac5') }}
                                         <i class="bi bi-chevron-right"></i></a>
                                     <ul>
                                         <li><a
-                                                href="{{ route('masterd', ['slug' => App::getLocale()]) }}">{{ __('messages.mdmarFC') }}</a>
+                                                href="{{ route('MDMAR', ['slug' => App::getLocale()]) }}">{{ __('messages.mdmarFC') }}</a>
                                         </li>
                                         <li><a
-                                                href="{{ route('mastermaint', ['slug' => App::getLocale()]) }}">{{ __('messages.mmgbFC') }}</a>
+                                                href="{{ route('MMGB', ['slug' => App::getLocale()]) }}">{{ __('messages.mmgbFC') }}</a>
                                         </li>
                                         <li><a
-                                                href="{{ route('mastere', ['slug' => App::getLocale()]) }}">{{ __('messages.memtFC') }}</a>
+                                                href="{{ route('MEMT', ['slug' => App::getLocale()]) }}">{{ __('messages.memtFC') }}</a>
                                         </li>
 
                                     </ul>
@@ -288,22 +285,11 @@
                             </ul>
 
                         </li>
-
-                        <!--               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>  -->
-
                     </ul>
                 </li>
 
 
-                <li class="dropdown"><a href="#"><span> {{ __('messages.preinscription') }}</span> <i
+                <li class="dropdown"><a href=""><span> Pré-inscription</span> <i
                             class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="{{ route('inscription', ['slug' => App::getLocale()]) }}">

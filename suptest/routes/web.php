@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BourseController;
 use App\Http\Controllers\CheckBourseController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DemandeDeBourseController;
@@ -35,42 +36,45 @@ Route::controller(ViewsController::class)->group(function () {
     Route::get('/docs', 'docs');
     Route::get('/export/{Filiere}/{ville}', 'export')->name('export');
     Route::get('/exportBourse/{Type}', 'expoexportBoursert')->name('exportBourse');
-    Route::get('/1sty-cycle-initial', 'firstCycle');
-    Route::get('/2nd-y-cycle-initial', 'secondCycle');
-    Route::get('/FormationsContinue', 'formContinue');
-    Route::get('/formations', 'formation');
-    Route::get('/GB-initial', 'GBI');
-    Route::get('/GBtech-initial', 'GBT');
-    Route::get('/GDIAS-initial', 'GDIAS');
-    Route::get('/LBM', 'LBM');
-    Route::get('/LBM-initial', 'LBMI');
-    Route::get('/LGIH-initial', 'LGIHI');
-    Route::get('/LGILH', 'LGILH');
-    Route::get('/LIAR', 'LIAR');
-    Route::get('/LIAR-initial', 'LIARI');
-    Route::get('/LIDESD', 'LIDESD');
-    Route::get('/LIDESD-initial', 'LIDESDI');
+    //class preparatoire
+    Route::get('/1sty-cycle-initial', 'firstCycle')->name('firstCycle');
+    Route::get('/2nd-y-cycle-initial', 'secondCycle')->name('secondCycle');
+    //type formation
+    Route::get('/FormationsContinue', 'formContinue')->name('formContinue');
+    Route::get('/formations', 'formation')->name('formation');
+    //cycle ingenieur
+    Route::get('/GB-initial', 'GBI')->name('GBI');
+    Route::get('/GBtech-initial', 'GBT')->name('GBT');
+    Route::get('/GDIAS-initial', 'GDIAS')->name('GDIAS');
+    Route::get('/LBM', 'LBM')->name('LBM');
+    Route::get('/LBM-initial', 'LBMI')->name('LBMI');
+    Route::get('/LGIH-initial', 'LGIHI')->name('LGIHI');
+    Route::get('/LGILH', 'LGILH')->name('LGILH');
+    Route::get('/LIAR', 'LIAR')->name('LIAR');
+    Route::get('/LIAR-initial', 'LIARI')->name('LIARI');
+    Route::get('/LIDSED', 'LIDSED')->name('LIDSED');
+    Route::get('/LIDSED-initial', 'LIDSEDI')->name('LIDSEDI');
     Route::get('/LIFDM', 'LIFDM');
     Route::get('/LIFDM-initial', 'LIFDMI');
-    Route::get('/LIIBO', 'LIIBO');
-    Route::get('LIIBO-initial', 'LIIBOI');
-    Route::get('/LIP', 'LIP');
-    Route::get('/LIP-initial', 'LIPI');
-    Route::get('/LMM', 'LMM');
+    Route::get('/LIIBO', 'LIIBO')->name('LIIBO');
+    Route::get('LIIBO-initial', 'LIIBOI')->name('LIIBOI');
+    Route::get('/LIP', 'LIP')->name('LIP');
+    Route::get('/LIP-initial', 'LIPI')->name('LIPI');
+    Route::get('/LMM', 'LMM')->name('LMM');
     Route::get('/LMM-initial', 'LMMI');
     Route::get('/LMMDSS', 'LMMDSS');
     Route::get('/LMMDSS-initial', 'LMMDSSI');
-    Route::get('/LSG-initial', 'LSGI');
-    Route::get('/LSG', 'LSG');
-    Route::get('/MDMAR-initial', 'MDMARI');
-    Route::get('/MDMAR', 'MDMAR');
-    Route::get('/MEMT-initial', 'MEMTI');
-    Route::get('/MEMT', 'MEMT');
-    Route::get('/MMBG-initial', 'MMBGI');
-    Route::get('/MMGB', 'MMGB');
+    Route::get('/LSG-initial', 'LSGI')->name('LSGI');
+    Route::get('/LSG', 'LSG')->name('LSG');
+    Route::get('/MDMAR-initial', 'MDMARI')->name('MDMARI');
+    Route::get('/MDMAR', 'MDMAR')->name('MDMAR');
+    Route::get('/MEMT-initial', 'MEMTI')->name('MEMTI');
+    Route::get('/MEMT', 'MEMT')->name('MEMT');
+    Route::get('/MMBG-initial', 'MMBGI')->name('MMBGI');
+    Route::get('/MMGB', 'MMGB')->name('MMGB');
     Route::get('/results', 'results');
     Route::get('/suivi-bourse', 'bourse');
-    Route::get('/suivi-pre-inscription', 'suiviPreInsc');
+    Route::post('/suivi-pre-inscription', 'suiviPreInsc');
     Route::get('/suptech-envirenment', 'suptech');
 });
 
@@ -87,6 +91,9 @@ Route::post('/inscription', [PreInscriptionController::class, 'Insert'])->name('
 Route::delete('/requests{id}', [PreInscriptionController::class, 'DeleteRegister'])->name('Inscrire.destroy2');
 Route::get('/inscription_liste', [PreInscriptionController::class, 'showRegisters'])->name('inscription_liste');
 Route::get('/PdfStudent/{id}', [PreInscriptionController::class, 'getRegisterPDF'])->name('PdfStudent');
+Route::get('/SuiviInscription', function ($slug) {
+    return view('suivi_Inscription');
+})->name('SuiviInscription');
 
 //routage de formation continue pre-inscription
 Route::get('/pre-inscription-continue', [PreInscriptionContinueController::class, 'index']);
@@ -107,6 +114,8 @@ Route::get('/check_bourse', [CheckBourseController::class, 'index'])->name('chec
 Route::post('/check_bourse', [CheckBourseController::class, 'checkInscription'])->name('check_bourse_check');
 Route::post('/demande_bourse', [DemandeDeBourseController::class, 'InsertBourse'])->name('submit_bourse');
 Route::get('/Bourse_liste', [DemandeDeBourseController::class, 'CheckUserLoginBourse'])->name('Bourse_liste');
+// Route::get('/demande-de-bourse', [DemandeDeBourseController::class, 'index'])->name('check_signup');
+Route::match(array('GET', 'POST'), '/CheckUserBourse', [BourseController::class, 'CheckUserBourse'])->name('CheckUserBourse');
 
 
 Route::get('/filesbourse', function ($slug) {
